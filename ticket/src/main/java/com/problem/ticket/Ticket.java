@@ -13,6 +13,11 @@ public class Ticket {
 	
 	private static final int M = 31;
 	
+	private static final int
+		T1 = 2,
+		T7 = 7,
+		T30 = 25;
+	
 	public static int solution(int... ds) {
 		int[] ts = new int[M]; // trips
 		int[] r = new int[M]; // result
@@ -25,14 +30,14 @@ public class Ticket {
 				ts[i] += 1;
 				++j;
 				
-				int p = r[i - 1] + 2; // ordinary ticket price increase
-				r[i] = getTrips(ts, i - 7, i) > 3 ? min(r[max(0, i - 7)] + 7, p) : p;
+				int p = r[i - 1] + T1; // ordinary ticket price increase
+				r[i] = getTrips(ts, i - 7, i) > 3 ? min(r[max(0, i - 7)] + T7, p) : p;
 			} else {
 				r[i] = r[i - 1];
 			}
 		}
 		
-		return min(25, r[M - 1]);
+		return min(T30, r[M - 1]);
 	}
 	
 	/**
