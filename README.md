@@ -1,7 +1,7 @@
 problem
 ======
 
-A collection of programming problems, that I'm trying to solve.
+A collection of programming problems.
 
 ### ticket
 
