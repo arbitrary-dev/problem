@@ -6,6 +6,11 @@ import static com.problem.ticket.Ticket.solution;
 
 public class TicketTest {
 	@Test
+	public void test0() {
+		assertEquals(0, solution());
+	}
+	
+	@Test
 	public void test11_1() {
 		assertEquals(11, solution(1, 2, 4, 5, 7, 29, 30));
 	}
