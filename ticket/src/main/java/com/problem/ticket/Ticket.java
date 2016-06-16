@@ -39,6 +39,6 @@ public class Ticket {
 	 * Get trips count using prefix sum.
 	 */
 	private static int getTrips(int[] ts, int l, int r) {
-		return ts[min(r, M - 1)] - ts[max(l, 0)];
+		return ts[r] - ts[max(l, 0)];
 	}
 }
