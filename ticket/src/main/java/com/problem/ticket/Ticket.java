@@ -25,15 +25,14 @@ public class Ticket {
 		
 		for (int i = 1; i < M; ++i) {
 			ts[i] = ts[i - 1];
+			r[i] = r[i - 1];
 			
 			if (j < ds.length && ds[j] == i) {
 				ts[i] += 1;
 				++j;
 				
-				int p = r[i - 1] + T1; // ordinary ticket price increase
+				int p = r[i] + T1; // ordinary ticket price increase
 				r[i] = getTrips(ts, i - 7, i) > 3 ? min(r[max(0, i - 7)] + T7, p) : p;
-			} else {
-				r[i] = r[i - 1];
 			}
 		}
 		
