@@ -28,11 +28,11 @@ public class Ticket {
 			r[i] = r[i - 1];
 			
 			if (j < ds.length && ds[j] == i) {
-				ts[i] += 1;
+				++ts[i]; // have a trip
 				++j;
 				
-				int p = r[i] + T1; // ordinary ticket price increase
-				r[i] = getTrips(ts, i - 7, i) > 3 ? min(r[max(0, i - 7)] + T7, p) : p;
+				r[i] += T1; // ordinary ticket price increase
+				r[i] = getTrips(ts, i - 7, i) > 3 ? min(r[max(0, i - 7)] + T7, r[i]) : r[i];
 			}
 		}
 		
