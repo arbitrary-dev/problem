@@ -51,3 +51,19 @@ Suffering from an overwhelming need to reverse exacly one coin, he needs to calm
 write code which will return maximal adjacency rating after change.
 
 Example: C = [1, 1, 0, 1, 0, 0], AR = 2 >>> AR = 4 (after reversing C[2])
+
+### phone
+
+Pretty-format phone numbers consisting of digits, spaces and hyphens.
+Resulting phone number must be grouped in blocks of sizes 3,
+last 1-2 blocks can be of size 2.
+
+Example: "0 - 22 1985--324" >>> "022-198-53-24"
+
+### trip
+
+Given array of trips to places (P) A[D] = P for each day (D),
+find minimum size of a trip to visit all places.
+Where P = 0..N, D = 1..N and N = 1..100,000.
+
+Example: A = [7, 3, 7, 3, 1, 3, 4, 1] >>> 5
