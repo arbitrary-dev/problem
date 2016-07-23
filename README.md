@@ -67,3 +67,12 @@ find minimum size of a trip to visit all places.
 Where P = 0..N, D = 1..N and N = 1..100,000.
 
 Example: A = [7, 3, 7, 3, 1, 3, 4, 1] >>> 5
+
+### hotel
+
+You have a space-separated set of words which must be in the hotel reviews.
+In next line you've got number of reviews M that follow and consist of 2 lines:
+hotel ID and review text.
+
+Output must consist of hotel IDs sorted in descending order, by how many words we seek are
+specified in hotel reviews, if numbers are equal, smaller hotel ID has priority.
