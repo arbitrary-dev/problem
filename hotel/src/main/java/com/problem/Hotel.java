@@ -26,13 +26,13 @@ public class Hotel {
 			readWords(sc.nextLine(), words);
 			int M = sc.nextInt();
 
-			TreeSet<HotelScore> scores = new TreeSet<>();	// sorted set
+			TreeSet<HotelScore> scores = new TreeSet<>(); // sorted set
 			for (int i = 0; i < M; ++i) {
 				int id = sc.nextInt();
-				sc.nextLine();									// skip to the next line
-				HotelScore hs = retrieveOrCreate(scores, id);	// remove from set or create new
-				hs.scoreReview(sc.nextLine(), words);			// update
-				scores.add(hs);									// put it back
+				sc.nextLine(); // skip to the next line
+				HotelScore hs = retrieveOrCreate(scores, id); // remove from set or create new
+				hs.scoreReview(sc.nextLine(), words); // update
+				scores.add(hs); // put it back
 			}
 
 			for (HotelScore h : scores) out.printf("%s ", h);
