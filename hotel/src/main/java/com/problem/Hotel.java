@@ -35,18 +35,17 @@ public class Hotel {
 
 		@Override
 		public String toString() {
-			return String.valueOf(id);
+			return id.toString();
 		}
 
 		@Override
 		public int compareTo(HotelScore o) {
-			int res = o.score - score;
-			if (res != 0) return res;
+			if (o.score < score) return -1;
 			return id - o.id;
 		}
 	}
 
-	private static void readWords(String from, Collection<String> to) {
+	static void readWords(String from, Collection<String> to) {
 		BreakIterator bi = BreakIterator.getWordInstance(Locale.US);
 		bi.setText(from);
 
@@ -57,7 +56,7 @@ public class Hotel {
 				to.add(from.substring(first, last).toLowerCase(Locale.US));
 	}
 
-	public static void solve(InputStream in, PrintStream out) {
+	static void solve(InputStream in, PrintStream out) {
 		Scanner sc = new Scanner(in);
 
 		try {
