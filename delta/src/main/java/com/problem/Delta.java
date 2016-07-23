@@ -15,16 +15,16 @@ public class Delta {
 			int prev = sc.nextInt();
 			out.printf("%d ", prev); // the first element reproduced as-is
 
-			// Assume input numbers are all positive.
-			for (int i = sc.nextInt(); ; prev = i, i = sc.nextInt()) {
-				int delta = i - prev;
+			while (sc.hasNext()) {
+				int num = sc.nextInt();
+				int delta = num - prev;
 
 				if (Math.abs(delta) > 127)
 					out.print("-128 ");
 
 				out.printf("%d ", delta);
 
-				if (!sc.hasNext()) break; // can't check in loop declaration
+				prev = num;
 			}
 		}
 		finally {

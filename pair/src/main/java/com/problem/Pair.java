@@ -17,15 +17,15 @@ public class Pair {
 			int N = sc.nextInt();
 			Set<Integer> missing = new TreeSet<>();
 
-			for (Integer i = sc.nextInt(); ; i = sc.nextInt()) {
+			while (sc.hasNext()) {
+				Integer i = sc.nextInt();
+
 				if (missing.contains(i)) {
 					out.print(1);
 					return;
 				}
 
 				missing.add(N - i);
-
-				if (!sc.hasNext()) break; // can't check in loop declaration
 			}
 
 			out.print(0);
