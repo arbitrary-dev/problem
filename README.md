@@ -76,3 +76,10 @@ hotel ID and review text.
 
 Output must consist of hotel IDs sorted in descending order, by how many words we seek are
 specified in hotel reviews, if numbers are equal, smaller hotel ID has priority.
+
+### delta
+
+Encode input numbers using delta to previous number. First number is printed as-is.
+If delta doesn't fit signed byte [-127..127], print -128 and then delta.
+
+Example: 25757 24367 24267 >>> 25757 -128 -1390 -100
