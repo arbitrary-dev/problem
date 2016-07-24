@@ -10,9 +10,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
 public class Hotel {
 
@@ -26,16 +27,15 @@ public class Hotel {
 			readWords(sc.nextLine(), words);
 			int M = sc.nextInt();
 
-			TreeSet<HotelScore> scores = new TreeSet<>(); // sorted set
+			TreeMap<HotelScore,HotelScore> scores = new TreeMap<>(); // sorted map
 			for (int i = 0; i < M; ++i) {
-				int id = sc.nextInt();
+				HotelScore hs = retrieve(scores, sc.nextInt()); // remove from map or create new
 				sc.nextLine(); // skip to the next line
-				HotelScore hs = retrieveOrCreate(scores, id); // remove from set or create new
 				hs.scoreReview(sc.nextLine(), words); // update
-				scores.add(hs); // put it back
+				scores.put(hs, hs); // put it back
 			}
 
-			for (HotelScore h : scores) out.printf("%s ", h);
+			for (HotelScore h : scores.keySet()) out.printf("%s ", h);
 		}
 		finally {
 			sc.close();
@@ -46,7 +46,14 @@ public class Hotel {
 		solve(System.in, System.out);
 	}
 
+	private static HotelScore retrieve(Map<HotelScore,HotelScore> map, int id) {
+		HotelScore neu = new HotelScore(id);
+		HotelScore old = map.remove(neu);
+		return old == null ? neu : old;
+	}
+
 	private static class HotelScore implements Comparable<HotelScore> {
+
 		final Integer id;
 		int score = -1;
 
@@ -101,23 +108,5 @@ public class Hotel {
 		for (int first = bi.first(), last = bi.next(); last != DONE; first = last, last = bi.next())
 			if (Character.isLetter(from.charAt(first)))
 				to.add(from.substring(first, last).toLowerCase(Locale.US));
-	}
-
-	private static HotelScore retrieveOrCreate(TreeSet<HotelScore> scores, int id) {
-		HotelScore hs = new HotelScore(id);
-
-		HotelScore res = scores.ceiling(hs);
-		if (res != null && res.id == id) {
-			scores.remove(hs);
-			return res;
-		}
-
-		res = scores.floor(hs);
-		if (res != null && res.id == id) {
-			scores.remove(hs);
-			return res;
-		}
-
-		return hs;
 	}
 }
