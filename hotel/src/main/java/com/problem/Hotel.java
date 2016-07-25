@@ -8,6 +8,7 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,15 +28,15 @@ public class Hotel {
 			readWords(sc.nextLine(), words);
 			int M = sc.nextInt();
 
-			TreeMap<HotelScore,HotelScore> scores = new TreeMap<>(); // sorted map
+			Reviewer revr = new Reviewer(words);
 			for (int i = 0; i < M; ++i) {
-				HotelScore hs = retrieve(scores, sc.nextInt()); // remove from map or create new
+				int id = sc.nextInt();
 				sc.nextLine(); // skip to the next line
-				hs.scoreReview(sc.nextLine(), words); // update
-				scores.put(hs, hs); // put it back
+				String rev = sc.nextLine();
+				revr.review(id, rev);
 			}
 
-			for (HotelScore h : scores.keySet()) out.printf("%s ", h);
+			for (Score s : revr) out.printf("%s ", s);
 		}
 		finally {
 			sc.close();
@@ -46,56 +47,72 @@ public class Hotel {
 		solve(System.in, System.out);
 	}
 
-	private static HotelScore retrieve(Map<HotelScore,HotelScore> map, int id) {
-		HotelScore neu = new HotelScore(id);
-		HotelScore old = map.remove(neu);
-		return old == null ? neu : old;
+	private static class Reviewer implements Iterable<Score> {
+
+		private final Map<Score, Score> scores = new TreeMap<>();
+		private final Set<String> words;
+
+		public Reviewer(Set<String> words) {
+			this.words = words;
+		}
+
+		public void review(int id, String review) {
+			Score neu = new Score(id);
+			Score old = scores.remove(neu);
+			Score score = (old == null) ? neu : old; // try to get old score or create new otherwise
+
+			// init score
+			if (score.val == -1) score.val = 0;
+
+			// update score
+			List<String> rwords = new ArrayList<>();
+			readWords(review, rwords);
+			for (String rw : rwords)
+				if (words.contains(rw))
+					++score.val;
+
+			scores.put(score, score); // put it back
+		}
+
+		@Override
+		public Iterator<Score> iterator() {
+			return scores.keySet().iterator();
+		}
 	}
 
-	private static class HotelScore implements Comparable<HotelScore> {
+	private static class Score implements Comparable<Score> {
 
-		final Integer id;
-		int score = -1;
+		private final int id;
+		private int val = -1;
 
-		public HotelScore(Integer id) {
-			if (id == null)
-				throw new NullPointerException();
+		public Score(int id) {
 			this.id = id;
 		}
 
-		public void scoreReview(String r, Set<String> words) {
-			if (score == -1) score = 0;
-
-			List<String> rwords = new ArrayList<String>();
-			readWords(r, rwords);
-			for (String rw : rwords)
-				if (words.contains(rw))
-					++score;
-		}
-
 		@Override
-		public String toString() {
-			return id.toString();
-		}
-
-		@Override
-		public int compareTo(HotelScore o) {
-			return (score != -1 && o.score != -1 && o.score != score)
-				? o.score - score : id - o.id;
+		public int compareTo(Score o) {
+			// val = -1 is used to be able to search score by id in a TreeSet
+			return (val != -1 && o.val != -1 && o.val != val)
+				? o.val - val : id - o.id;
 		}
 
 		@Override
 		public int hashCode() {
-			return id.hashCode();
+			return Integer.hashCode(id);
 		}
 
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
 				return true;
-			if (obj == null || !(obj instanceof HotelScore))
+			if (obj == null || !(obj instanceof Score))
 				return false;
-			return id.equals(((HotelScore) obj).id);
+			return id == ((Score) obj).id;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(id);
 		}
 	}
 
