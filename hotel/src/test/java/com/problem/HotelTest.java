@@ -33,14 +33,16 @@ public class HotelTest {
 
 	private static void asrtWords(String s, String... words) {
 		List<String> list = new ArrayList<>();
-		Hotel.readWords(s, list);
+		Hotel.forWords(s, w -> list.add(w));
 		assertThat(list, IsIterableContainingInOrder.contains(words));
 	}
 
 	@Test public void testReadWords() {
+		asrtWords("breakfast beach citycenter location metro view staff price",
+			"breakfast", "beach", "citycenter", "location", "metro", "view", "staff", "price");
 		asrtWords("One two three", "one", "two", "three");
 		asrtWords("One", "one");
-		asrtWords("tWo!", "two");
+		asrtWords(" tWo!", "two");
 		asrtWords("Three, three ,three! four", "three", "three", "three", "four");
 	}
 }

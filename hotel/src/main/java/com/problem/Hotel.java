@@ -1,20 +1,14 @@
 package com.problem;
 
-import static java.text.BreakIterator.DONE;
-
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 public class Hotel {
 
@@ -25,7 +19,7 @@ public class Hotel {
 			if (!sc.hasNext()) return;
 
 			Set<String> words = new HashSet<>();
-			readWords(sc.nextLine(), words);
+			forWords(sc.nextLine(), w -> words.add(w));
 			int M = sc.nextInt();
 
 			Reviewer revr = new Reviewer(words);
@@ -61,16 +55,8 @@ public class Hotel {
 			Score old = scores.remove(neu);
 			Score score = (old == null) ? neu : old; // try to get old score or create new otherwise
 
-			// init score
-			if (score.val == -1) score.val = 0;
-
-			// update score
-			List<String> rwords = new ArrayList<>();
-			readWords(review, rwords);
-			for (String rw : rwords)
-				if (words.contains(rw))
-					++score.val;
-
+			if (score.val == -1) score.val = 0; // init
+			forWords(review, w -> { if (words.contains(w)) ++score.val; }); // update
 			scores.put(score, score); // put it back
 		}
 
@@ -116,14 +102,22 @@ public class Hotel {
 		}
 	}
 
-	static void readWords(String from, Collection<String> to) {
-		BreakIterator bi = BreakIterator.getWordInstance(Locale.US);
-		bi.setText(from);
+	private static final Pattern DELIMITER = Pattern.compile("[ ,.!?]+");
 
-		if (bi.first() == DONE) return;
+	static interface Func {
+		public void apply(String s);
+	}
 
-		for (int first = bi.first(), last = bi.next(); last != DONE; first = last, last = bi.next())
-			if (Character.isLetter(from.charAt(first)))
-				to.add(from.substring(first, last).toLowerCase(Locale.US));
+	static void forWords(String from, Func func) {
+		Scanner sc = new Scanner(from);
+		sc.useDelimiter(DELIMITER);
+
+		try {
+			while (sc.hasNext())
+				func.apply(sc.next().toLowerCase());
+		}
+		finally {
+			sc.close();
+		}
 	}
 }
