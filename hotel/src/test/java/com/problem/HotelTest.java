@@ -28,7 +28,11 @@ public class HotelTest {
 	}
 
 	@Test public void test1() throws FileNotFoundException {
-		asrt("sample.txt", "2 1");
+		asrt("sample-1.txt", "2 1");
+	}
+
+	@Test public void test2() throws FileNotFoundException {
+		asrt("sample-2.txt", "2 3 1");
 	}
 
 	private static void asrtWords(String s, String... words) {

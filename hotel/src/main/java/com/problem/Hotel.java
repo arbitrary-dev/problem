@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class Hotel {
@@ -43,7 +44,8 @@ public class Hotel {
 
 	private static class Reviewer implements Iterable<Score> {
 
-		private final Map<Score, Score> scores = new TreeMap<>();
+		private final Map<Integer, Score> h2s = new TreeMap<>();
+		private final Set<Score> scores = new TreeSet<>();
 		private final Set<String> words;
 
 		public Reviewer(Set<String> words) {
@@ -51,25 +53,27 @@ public class Hotel {
 		}
 
 		public void review(int id, String review) {
-			Score neu = new Score(id);
-			Score old = scores.remove(neu);
-			Score score = (old == null) ? neu : old; // try to get old score or create new otherwise
+			Score old = h2s.get(id);
+			if (old == null)
+				h2s.put(id, old = new Score(id));
+			else
+				scores.remove(old);
+			final Score score = old;
 
-			if (score.val == -1) score.val = 0; // init
 			forWords(review, w -> { if (words.contains(w)) ++score.val; }); // update
-			scores.put(score, score); // put it back
+			scores.add(score); // put it back
 		}
 
 		@Override
 		public Iterator<Score> iterator() {
-			return scores.keySet().iterator();
+			return scores.iterator();
 		}
 	}
 
 	private static class Score implements Comparable<Score> {
 
 		private final int id;
-		private int val = -1;
+		private int val;
 
 		public Score(int id) {
 			this.id = id;
@@ -77,9 +81,7 @@ public class Hotel {
 
 		@Override
 		public int compareTo(Score o) {
-			// val = -1 is used to be able to search score by id in a TreeSet
-			return (val != -1 && o.val != -1 && o.val != val)
-				? o.val - val : id - o.id;
+			return o.val != val ? o.val - val : id - o.id;
 		}
 
 		@Override
