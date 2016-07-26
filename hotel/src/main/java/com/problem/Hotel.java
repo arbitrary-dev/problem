@@ -104,7 +104,7 @@ public class Hotel {
 		}
 	}
 
-	private static final Pattern DELIMITER = Pattern.compile("[ ,.!?]+");
+	private static final Pattern DELIMITER = Pattern.compile("[\\s,.!?'\"]+");
 
 	static interface Func {
 		public void apply(String s);

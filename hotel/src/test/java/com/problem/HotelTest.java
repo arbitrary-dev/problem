@@ -42,7 +42,7 @@ public class HotelTest {
 	}
 
 	@Test public void testReadWords() {
-		asrtWords("breakfast beach citycenter location metro view staff price",
+		asrtWords("breakfast 'beach' citycenter\nlocation metro \"view\" staff price",
 			"breakfast", "beach", "citycenter", "location", "metro", "view", "staff", "price");
 		asrtWords("One two three", "one", "two", "three");
 		asrtWords("One", "one");
