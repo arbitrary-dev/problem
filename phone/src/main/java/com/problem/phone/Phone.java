@@ -4,14 +4,17 @@ import static java.lang.Character.isDigit;
 
 public class Phone {
 	public static String solution(String input) {
-		StringBuilder sb = new StringBuilder();
-
-		input.chars().forEach(c -> {
-			if (!isDigit(c)) return;
-			int L = sb.length();
-			if (L > 3 && L % 4 == 0) sb.insert(L - 1, '-');
-			sb.append((char) c);
-		});
+		StringBuilder sb = input
+			.chars()
+			.filter(c -> isDigit(c))
+			.collect(
+				() -> new StringBuilder(),
+				(acc, i) -> {
+					int L = acc.length();
+					if (L > 3 && L % 4 == 0) acc.insert(L - 1, '-');
+					acc.append((char) i);
+				},
+				null);
 
 		int L = sb.length();
 		if (L > 3 && L % 4 == 0) sb.insert(L - 2, '-');
