@@ -88,3 +88,7 @@ Example: 25757 24367 24267 >>> 25757 -128 -1390 -100
 
 With first line you get sum N, which you must find in any pair of following numbers.
 Output 1 if such pair exists, otherwise 0.
+
+### polygon
+
+???
