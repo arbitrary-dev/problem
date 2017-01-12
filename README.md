@@ -91,4 +91,7 @@ Output `1` if such pair exists, otherwise `0`.
 
 ### polygon
 
-???
+Given a list of dimensions of 4-side polygon, you need to output numbers of different
+figures in the list.
+
+Output format: *`<squares> <rectangles> <other>`*
