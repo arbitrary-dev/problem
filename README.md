@@ -105,3 +105,13 @@ at least one of them in upper-case. But output from keygrabber may also
 contain digits.
 
 Example: `u1aBBa2bbccdd >>> 4 (aBBa)`
+
+### zip
+
+It's time to zip your numerical jeans, bro! Given two numbers `A` and `B`
+in range `[0..100,000,000]` zip them like `A[0]B[0]A[1]B[1]...`.
+If any number is longer than the other, you should just append remaining
+digits to the end of resulting zip. You should return `-1` if resulting
+number exceeds 100,000,000.
+
+Example: `12345, 678 >>> 16273845`
