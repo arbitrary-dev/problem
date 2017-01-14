@@ -3,7 +3,7 @@ Problem
 
 A collection of programming problems.
 
-### ticket
+### ticket, ticket-scala
 
 You're trying to escape your totalitarian country and to move your stuff
 in several trips. What you've got is an array `t[0..30]` of month dates `t[i] = [1..30]`
@@ -52,7 +52,7 @@ he needs to calm down and write code which will return maximal adjacency rating 
 
 Example: `C = [1, 1, 0, 1, 0, 0], AR = 2 >>> AR = 4` (after reversing `C[2]`)
 
-### phone
+### phone, phone-scala
 
 Pretty-format phone numbers consisting of digits, spaces and hyphens.
 Resulting phone number must be grouped in blocks of sizes 3,
@@ -95,3 +95,13 @@ Given a list of dimensions of 4-side polygon, you need to output numbers of diff
 figures in the list.
 
 Output format: *`<squares> <rectangles> <other>`*
+
+### password
+
+You've just stolen long output from keygrabber of one of your victims.
+Now you need to find out the length of longest password-like substring there.
+For substring to be password-like it must contain only letters with
+at least one of them in upper-case. But output from keygrabber may also
+contain digits.
+
+Example: `u1aBBa2bbccdd >>> 4 (aBBa)`
