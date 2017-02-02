@@ -115,3 +115,16 @@ digits to the end of resulting zip. You should return `-1` if resulting
 number exceeds 100,000,000.
 
 Example: `12345, 678 >>> 16273845`
+
+### pascal
+
+Mr. Pascal asked you to make him a function that will build beautiful triangles of supplied size.
+
+Example:
+
+```
+2:  1     3:   1      4:    1
+   1 1        1 1          1 1
+             1 2 1        1 2 1
+                         1 3 3 1
+```
