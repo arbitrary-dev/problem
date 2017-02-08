@@ -32,7 +32,7 @@ Now you need to know maximum profits you can get from an account with known valu
 
 Example: `N = 213 >>> 321`
 
-### abs-divide
+### abs-divide, abs-divide-scala
 
 Living in a poor ghetto everyday you participate in wall-to-wall fighting encounters.
 Tired of boring fights when powers are somewhat equal, you write a program to divide people
