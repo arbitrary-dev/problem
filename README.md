@@ -128,3 +128,11 @@ Example:
              1 2 1        1 2 1
                          1 3 3 1
 ```
+
+### chain-split
+
+You have a chain `C` of size `N` and your task is to split this chain in three non-empty chains
+on the weakest elements (`P`, `Q`, `0 < P < Q < N - 1` and `Q - P > 1`) and return
+the sum of strengths of these elements, `C[P] + C[Q]`.
+
+Example: `[5, 2, 4, 6, 3, 7] >>> 5 (C[1] + C[4])`
