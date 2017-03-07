@@ -7,7 +7,7 @@ object Pascal {
       return Nil
 
     (0 until size).foldLeft(List[List[Int]]()) { (res, r) =>
-      (r to 0 by -1).foldLeft(List[Int]()) { (row, c) =>
+      (0 to r).foldRight(List[Int]()) { (c, row) =>
         num(c, r, res) :: row
       } :: res
     } reverse
